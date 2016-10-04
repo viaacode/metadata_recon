@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<adlibXML 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.adlibsoft.com/adlibXML.xsd">
+    <recordList>
+        <record>
+            <priref>49597</priref>
+            <Current_location>
+                <current_location linkref="42104" linkfield="location" linkreffield="2a" linkdb="\\adlib\ADLIB\data+Location>location">
+                    <location>bagattenstraat</location>
+                    <location.type/>
+                </current_location>
+                <current_location.type/>
+                <current_location.date/>
+                <current_location.notes>C 004c-e</current_location.notes>
+                <current_location.suitability/>
+                <current_location.authoriser linkref="0" linkfield="name" linkreffield="2f" linkdb="\\adlib\ADLIB\data+people>people"></current_location.authoriser>
+                <current_location.time/>
+                <current_location.lref>42104</current_location.lref>
+                <current_location.authoriser.lref/>
+            </Current_location>
+            <Description>
+                <description.name/>
+                <description.date/>
+                <description>Interview met een anonieme mannelijke respondent (geboren op 1950-02-13) over seksuele voorlichting. Interview afgenomen in het kader van het project  &apos;Over de bloemetjes en de bijtjes&apos;.</description>
+            </Description>
+            <institution.name linkref="35548" linkfield="name" linkreffield="language.lref" linkdb="\\adlib\ADLIB\data+people>people">
+                <name>Amsab-Instituut voor Sociale Geschiedenis</name>
+                <address.place/>
+                <institution_code/>
+            </institution.name>
+            <institution.place/>
+            <web_exclusion_record>x</web_exclusion_record>
+            <Reproduction>
+                <reproduction.format/>
+                <reproduction.reference linkref="106298" linkfield="reference_number" linkreffield="reference_number.original" linkdb="\\adlib\ADLIB\data+photo>photo">
+                    <format/>
+                    <reference_number>audiocassette_0402</reference_number>
+                    <production_date/>
+                    <reproduction_type/>
+                    <creator/>
+                </reproduction.reference>
+                <reproduction.date/>
+                <reproduction.type/>
+                <reproduction.creator/>
+                <reproduction.reference.lref>106298</reproduction.reference.lref>
+            </Reproduction>
+            <Production>
+                <creator.role linkref="44370" linkfield="term" linkreffield="lT" linkdb="\\adlib\ADLIB\data+thesau>thesau">
+                    <term>interviewer</term>
+                </creator.role>
+                <creator.qualifier/>
+                <production.notes/>
+                <production.place linkref="2883" linkfield="term" linkreffield="related_term.lref" linkdb="\\adlib\ADLIB\data+thesau>thesau">
+                    <term>Gent</term>
+                </production.place>
+                <creator linkref="100785" linkfield="name" linkreffield="use.lref" linkdb="\\adlib\ADLIB\data+people>people">
+                    <name>Van Waesberghe, Steven</name>
+                    <birth.date.start/>
+                    <death.date.start/>
+                    <biography/>
+                </creator>
+                <creator.lref>100785</creator.lref>
+                <production.place.lref>2883</production.place.lref>
+                <creator.role.lref>44370</creator.role.lref>
+                <creator.date_of_birth/>
+                <creator.date_of_death/>
+                <creator.history/>
+            </Production>
+            <acquisition.number>S/2005/051</acquisition.number>
+            <institution.code/>
+            <Alternative_number>
+                <alternative_number>MG/05/051-87/1</alternative_number>
+                <alternative_number.type option="" value="">
+                    <text language="1">AR</text>
+                </alternative_number.type>
+                <alternative_number.date/>
+                <alternative_number.institution/>
+            </Alternative_number>
+            <object_number>MB 000184</object_number>
+            <phys_characteristic.aspect.lref>44693</phys_characteristic.aspect.lref>
+            <documentation.free_text>identificatiefiche</documentation.free_text>
+            <documentation.free_text>bandinhoudsfiche</documentation.free_text>
+            <documentation.free_text>interviewlijst</documentation.free_text>
+            <documentation.free_text>thematische transcriptiefiche</documentation.free_text>
+            <Object_name>
+                <object_name.authority linkref="0" linkfield="term" linkreffield="lx" linkdb="\\adlib\ADLIB\data+thesau>thesau"></object_name.authority>
+                <object_name linkref="44340" linkfield="term" linkreffield="broader_term.lref" linkdb="\\adlib\ADLIB\data+thesau>thesau">
+                    <term>mondelinge bron</term>
+                </object_name>
+                <object_name.notes/>
+                <object_name.type linkref="0" linkfield="term" linkreffield="lw" linkdb="\\adlib\ADLIB\data+thesau>thesau"></object_name.type>
+                <object_name.lref>44340</object_name.lref>
+                <object_name.type.lref/>
+                <object_name.authority.lref/>
+            </Object_name>
+            <record_access.owner>amsabadmin2</record_access.owner>
+            <Title>
+                <title.type>toegekende titel</title.type>
+                <title>Interview over seksuele voorlichting</title>
+                <title.notes/>
+            </Title>
+            <phys_characteristic.aspect linkref="44693" linkfield="term" linkreffield="LQ" linkdb="\\adlib\ADLIB\data+thesau>thesau">
+                <term>taal</term>
+            </phys_characteristic.aspect>
+            <physical_description>audiocassette</physical_description>
+            <phys_characteristic.keyword linkref="44701" linkfield="term" linkreffield="lC" linkdb="\\adlib\ADLIB\data+thesau>thesau">
+                <term>nld</term>
+                <term>ger</term>
+            </phys_characteristic.keyword>
+            <phys_characteristic.part>interview</phys_characteristic.part>
+            <web_inclusion_move>x</web_inclusion_move>
+            <production.reason>Oefening kwalitatieve methoden tijdens de academiejaren 1996-1997 en 1997-1998 - partim mondelinge geschiedenis voor project  &apos;Over de bloemetjes en de bijtjes&apos;.</production.reason>
+            <Documentation>
+                <documentation.author>De Weerdt, Denise</documentation.author>
+                <documentation.title.lref>12664</documentation.title.lref>
+                <documentation.page_reference/>
+                <documentation.shelfmark/>
+                <documentation.title linkref="12664" linkfield="title_term_index" linkreffield="lS" linkdb="\\adlib\ADLIB\data+document>fullcatalogue">
+                    <author.name>De Weerdt, Denise</author.name>
+                    <shelf_mark/>
+                    <title>Begeerte heeft ons aangeraakt : socialisten, sekse en seksualiteit</title>
+                    <lead_word/>
+                </documentation.title>
+                <documentation.title.lead_word/>
+            </Documentation>
+            <Documentation>
+                <documentation.author>Geysen, Wis</documentation.author>
+                <documentation.title.lref>200007792</documentation.title.lref>
+                <documentation.page_reference/>
+                <documentation.shelfmark/>
+                <documentation.title linkref="200007792" linkfield="title_term_index" linkreffield="lS" linkdb="\\adlib\ADLIB\data+document>fullcatalogue">
+                    <author.name>Geysen, Wis</author.name>
+                    <shelf_mark/>
+                    <title>Over bloemetjes en bijtjes : seksuele voorlichting in en rond het socialistisch milieu</title>
+                    <lead_word/>
+                </documentation.title>
+                <documentation.title.lead_word/>
+            </Documentation>
+            <input.date>2014-02-11</input.date>
+            <Edit>
+                <edit.date>2016-04-19</edit.date>
+                <edit.notes/>
+                <edit.name>kim.robensyn</edit.name>
+                <edit.time>09:49:03</edit.time>
+                <edit.source>collect&gt;intern</edit.source>
+            </Edit>
+            <Edit>
+                <edit.date>2016-01-22</edit.date>
+                <edit.notes/>
+                <edit.name>amsabadmin2</edit.name>
+                <edit.time>11:52:48</edit.time>
+                <edit.source>document&gt;article</edit.source>
+            </Edit>
+            <phys_characteristic.keyword.lref>44701</phys_characteristic.keyword.lref>
+            <institution.name.lref>35548</institution.name.lref>
+            <input.name>amsabadmin2</input.name>
+            <check_record>x</check_record>
+            <record_type option="OBJECT" value="enkelvoudig object">
+                <text language="0">single object</text>
+                <text language="1">enkelvoudig object</text>
+                <text language="2">objet individuel</text>
+                <text language="3">Einzelnes Objekt</text>
+                <text language="5">oggetto singolo</text>
+            </record_type>
+            <record_type option="OBJECT" value="enkelvoudig object">
+                <text language="0">single object</text>
+                <text language="1">enkelvoudig object</text>
+                <text language="2">objet individuel</text>
+                <text language="3">Einzelnes Objekt</text>
+                <text language="5">oggetto singolo</text>
+            </record_type>
+            <input.time>15:00:03</input.time>
+        </record>
+    </recordList>
+    <diagnostic>
+        <xmltype>Grouped</xmltype>
+        <hits>1</hits>
+        <search/>
+        <sort/>
+        <limit>0</limit>
+        <hits_on_display>1</hits_on_display>
+        <first_item>0</first_item>
+        <backward>0</backward>
+        <forward>0</forward>
+        <databasepath>\\adlib\adlib\data</databasepath>
+        <dbname>collect</dbname>
+        <dsname>intern</dsname>
+        <language>1</language>
+        <epoch>1473422105</epoch>
+        <error></error>
+    </diagnostic>
+</adlibXML>

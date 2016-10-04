@@ -1,0 +1,14 @@
+rabbit.host=
+rabbit.port=
+rabbit.virtualhost=
+rabbit.username=
+rabbit.password=
+rabbit.queuename=
+
+sftp.host=
+sftp.port=
+sftp.user=
+sftp.password=
+sftp.path=
+sftp.processingpath=
+sftp.allowedextension=

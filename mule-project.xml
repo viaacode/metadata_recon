@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<mule-project xmlns="http://www.mulesoft.com/tooling/project" runtimeId="org.mule.tooling.server.3.7.4.ee" schemaVersion="5.3.0.0">
+    <name>metadata_recon</name>
+    <description></description>
+    <muleExtension name="AMQP-0-9" qualifier="mule-transport-amqp-contribution"/>
+    <muleExtension name="AMQPS-0-9" qualifier="mule-transport-amqp-contribution"/>
+    <muleExtension name="Mule Requester" qualifier="org.mule.tooling.ui.contribution.mulerequester.3.5.0"/>
+    <muleExtension name="FTPS" qualifier="org.mule.tooling.ui.contribution.ftps.3.6.0"/>
+    <muleExtension name="SFTPLite" qualifier="org.mule.tooling.ui.contribution.sftplite.3.5.0"/>
+</mule-project>

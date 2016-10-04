@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:amqps="http://www.mulesoft.org/schema/mule/amqps" xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting" xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml" xmlns:sftplite="http://www.mulesoft.org/schema/mule/sftplite" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:mulerequester="http://www.mulesoft.org/schema/mule/mulerequester" xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:amqp="http://www.mulesoft.org/schema/mule/amqp" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/amqp http://www.mulesoft.org/schema/mule/amqp/current/mule-amqp.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+http://www.mulesoft.org/schema/mule/mulerequester http://www.mulesoft.org/schema/mule/mulerequester/current/mule-mulerequester.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/sftplite http://www.mulesoft.org/schema/mule/sftplite/current/mule-sftplite.xsd
+http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd
+http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd
+http://www.mulesoft.org/schema/mule/amqps http://www.mulesoft.org/schema/mule/amqps/current/mule-amqps.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd">
+    <mulerequester:config name="Mule_Requester" doc:name="Mule Requester"/>
+    <flow name="metadata_reconFlow" initialState="started">
+        <amqp:inbound-endpoint queueName="${rabbit.queuename}" responseTimeout="10000" connector-ref="RabbitMQConnector" doc:name="RabbitMQ inbound" exchange-pattern="request-response"></amqp:inbound-endpoint>
+        <json:json-to-object-transformer returnClass="java.util.HashMap" doc:name="JSON to Object"/>
+        <set-variable variableName="input" value="#[payload]" doc:name="Set input"/>
+        <foreach collection="#[payload.sip_package]" doc:name="For Each">
+            <set-variable variableName="file" value="#[payload]" doc:name="Set file"/>
+            <sftplite:get-file-content filePath="#[flowVars.file.file_path + &quot;/&quot; + flowVars.file.file_name]" hostName="#[flowVars.input.server]" password="#[java.net.URLEncoder.encode(flowVars.input.password)]" userName="#[flowVars.input.username]" doc:name="SFTPLite"/>
+            <!-- 
+            <sftplite:get-file-content filePath="#[payload.file_path.replace(&quot;/home&quot;, &quot;&quot;).replace(&quot;/&quot; + flowVars.input.username, &quot;&quot;) + &quot;/&quot; + payload.file_name]" hostName="#[flowVars.input.server]" password="#[flowVars.input.password]" userName="#[flowVars.input.username]" doc:name="SFTPLite"/>
+            -->
+            <mulexml:dom-to-xml-transformer doc:name="DOM to XML"/>
+            <enricher target="#[flowVars.nonMappedFieldsXml]" doc:name="Message Enricher">
+                <scripting:component doc:name="Groovy">
+                    <scripting:script engine="Groovy"><![CDATA[import groovy.xml.XmlUtil;
+import groovy.util.XmlParser;
+
+def root = new XmlParser().parseText(payload)
+
+root.recordList.record.Description.description.find {node -> node.replaceNode{}}
+root.recordList.record.Title.title.find { node -> node.replaceNode{}}
+root.recordList.record.Description.description.find { node -> node.replaceNode{}}
+root.recordList.record.Reproduction.'reproduction.reference'.reference_number.find { node -> node.replaceNode{}}
+root.recordList.record."acquisition.number".find { node -> node.replaceNode{}}
+root.recordList.record.Alternative_number.alternative_number.find { node -> node.replaceNode{}}
+root.recordList.record.priref.find { node -> node.replaceNode{}}
+root.recordList.record.Reproduction."reproduction.reference".reference_number.find { node -> node.replaceNode{}}
+root.recordList.record.object_number.find { node -> node.replaceNode{}}
+root.recordList.record.Documentation.find { node ->
+    node."documentation.title".title.find { temp -> temp.replaceNode{}}
+}
+root.recordList.record.Production.find { node -> node."creator_role".term.find { temp -> temp.replaceNode{}}}
+root.recordList.record."phys_characteristic.part".find { node -> node.replaceNode{}}
+root.recordList.record.Content_subject."content.subject.name".term.find { node -> node.replaceNode{}}
+root.recordList.record.Content_subject."content.date.start".find { node -> node.replaceNode{}}
+root.recordList.record.Content_subject."content.date.end".find { node -> node.replaceNode{}}
+root.recordList.record.Content_subject."content.subject".term.find { node -> node.replaceNode{}}
+
+root.recordList.record."phys_characteristic.keyword".term.find { node ->
+    node.replaceNode{}
+}
+root.recordList.record."production.reason".find { node -> node.replaceNode{}}
+root.recordList.record.Production_date.production.date.start.find { node -> node.replaceNode{}}
+
+
+return XmlUtil.serialize(root)]]></scripting:script>
+                </scripting:component>
+            </enricher>
+            <dw:transform-message metadata:id="e202cc34-8b90-4c5c-826b-81153a9cc11d" doc:name="Transform Message">
+                <dw:input-payload doc:sample="/Users/dieter/Documents/VIAA/AMSAB/97.xml"/>
+                <dw:set-payload><![CDATA[%dw 1.0
+%output application/xml
+%var toLanguage = (lang) -> {
+	(taal: 'nl') when lang == 'nld'
+}
+%var toCreator = (key, value) -> {
+	(capitalize key): value
+}
+---
+{
+	MediaHAVEN_external_metadata: {
+		(title: payload.adlibXML.recordList.record.Title.title) when payload.adlibXML.recordList.record.Title.title?,
+		(description: payload.adlibXML.recordList.record.Description.description) when payload.adlibXML.recordList.record.Description.description?,
+		MDProperties: {
+			CP: 'AMSAB',
+			(dc_identifier_localid: payload.adlibXML.recordList.record.Reproduction."reproduction.reference".reference_number) when payload.adlibXML.recordList.record.Reproduction."reproduction.reference".reference_number?,
+			dc_identifier_localids: {
+				(Acquisition_number: payload.adlibXML.recordList.record."acquisition.number") when payload.adlibXML.recordList.record."acquisition.number"?,
+				(Alternative_number: payload.adlibXML.recordList.record.Alternative_number.alternative_number) when payload.adlibXML.recordList.record.Alternative_number.alternative_number?,
+				(Priref: payload.adlibXML.recordList.record.priref) when payload.adlibXML.recordList.record.priref?,
+				(Reproduction_reference: payload.adlibXML.recordList.record.Reproduction."reproduction.reference".reference_number) when payload.adlibXML.recordList.record.Reproduction."reproduction.reference".reference_number?,
+				(Object_number: payload.adlibXML.recordList.record.object_number) when payload.adlibXML.recordList.record.object_number?
+			},
+			(dc_titles: payload.adlibXML.recordList.record.*Documentation."documentation.title".title mapObject (
+					archief: $	
+				)
+			) when payload.adlibXML.recordList.record.*Documentation."documentation.title".title?,
+			(dc_creators: payload.adlibXML.recordList.record.*Production mapObject (
+				toCreator($."creator.role".term, $.creator.name)
+			)) when payload.adlibXML.recordList.record.*Production."creator.role".term?,
+			(dc_types: {
+				genre: payload.adlibXML.recordList.record."phys_characteristic.part"
+			}) when payload.adlibXML.recordList.record."phys_characteristic.part"?,
+			dc_coverages: {
+				(ruimte: payload.adlibXML.recordList.record.Content_subject."content.subject.name".term) when payload.adlibXML.recordList.record.Content_subject."content.subject.name".term?,
+				(tijd: payload.adlibXML.recordList.record.Content_subject."content.date.start" ++ payload.adlibXML.recordList.record.Content_subject."content.date.end") when payload.adlibXML.recordList.record.Content_subject."content.date.start"? and payload.adlibXML.recordList.record.Content_subject."content.date.start"?
+			},
+			(dc_subjects: {
+				trefwoord: payload.adlibXML.recordList.record.Content_subject."content.subject".term
+			}) when payload.adlibXML.recordList.record.Content_subject."content.subject".term?,
+			dc_languages: payload.adlibXML.recordList.record."phys_characteristic.keyword".*term mapObject (
+				toLanguage($)
+			) when (payload.adlibXML.recordList.record."phys_characteristic.keyword"? and payload.adlibXML.recordList.record."phys_characteristic.keyword" is :array)
+			otherwise (
+				dc_languages: payload.adlibXML.recordList.record."phys_characteristic.keyword"
+			),
+			(dc_description_lang: payload.adlibXML.recordList.record."production.reason") when payload.adlibXML.recordList.record."production.reason"?,
+			(dcterms_created: payload.adlibXML.recordList.record.Production_date.production.date.start) when payload.adlibXML.recordList.record.Production_date.production.date.start?,
+			(CreationDate: payload.adlibXML.recordList.record.Production_date.production.date.start) when payload.adlibXML.recordList.record.Production_date.production.date.start?
+		}
+	}
+}]]></dw:set-payload>
+            </dw:transform-message>
+            <byte-array-to-string-transformer doc:name="Byte Array to String"/>
+            <sftplite:upload-stream fileName="#[org.apache.commons.io.FilenameUtils.getBaseName(flowVars.file.file_name) + &quot;_mapped.&quot; + org.apache.commons.io.FilenameUtils.getExtension(flowVars.file.file_name)]" filePath="#[flowVars.file.file_path]" hostName="#[flowVars.input.server]" password="#[flowVars.input.password]" userName="#[flowVars.input.username]" doc:name="Store mapped file"/>
+            <set-payload value="#[flowVars.nonMappedFieldsXml]" doc:name="Set Payload to non-mapped fields xml"/>
+            <sftplite:upload-stream fileName="#[org.apache.commons.io.FilenameUtils.getBaseName(flowVars.file.file_name) + &quot;_unmapped_fields.&quot; + org.apache.commons.io.FilenameUtils.getExtension(flowVars.file.file_name)]" filePath="#[flowVars.file.file_path]" hostName="#[flowVars.input.server]" password="#[flowVars.input.password]" userName="#[flowVars.input.username]" doc:name="Copy_of_SFTPLite"/>
+        </foreach>
+        <amqp:acknowledge-message doc:name="AMQP-0-9 Acknowledge Message"/>
+        <catch-exception-strategy doc:name="Catch Exception Strategy">
+            <logger message="An Error occurred." level="INFO" doc:name="Logger"/>
+            <amqp:reject-message doc:name="AMQP-0-9 Reject Message"/>
+        </catch-exception-strategy>
+    </flow>
+</mule>
